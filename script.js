@@ -1,40 +1,26 @@
 
-const vehiculos = [
-    {
-        imagen: "img/toyota-corolla.jpg",
-        marca: "Toyota",
-        modelo: "Corolla",
-        año: 2019,
-        precio: "$12,000",
-        kilometraje: "45,000 km",
-        estado: "Disponible",
-        whatsapp: "https://wa.me/584121234567"
-    },
-    {
-        imagen: "img/chevrolet-spark.jpg",
-        marca: "Chevrolet",
-        modelo: "Spark",
-        año: 2017,
-        precio: "$8,500",
-        kilometraje: "60,000 km",
-        estado: "Disponible",
-        whatsapp: "https://wa.me/584123456789"
-    }
-];
+// Reemplaza esta URL con tu link CSV publicado desde Google Sheets
+const sheetUrl = "AQUI_VA_TU_LINK_CSV";
 
-const container = document.getElementById("vehiculos-container");
+fetch(sheetUrl)
+  .then(response => response.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1);
+    const container = document.getElementById("inventario");
 
-vehiculos.forEach(auto => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-        <img src="\${auto.imagen}" alt="\${auto.marca} \${auto.modelo}">
-        <h2>\${auto.marca} \${auto.modelo}</h2>
-        <p><strong>Año:</strong> \${auto.año}</p>
-        <p><strong>Precio:</strong> \${auto.precio}</p>
-        <p><strong>Kilometraje:</strong> \${auto.kilometraje}</p>
-        <p><strong>Estado:</strong> \${auto.estado}</p>
-        <a href="\${auto.whatsapp}" target="_blank">Contactar por WhatsApp</a>
-    `;
-    container.appendChild(card);
-});
+    rows.forEach(row => {
+      const [marca, modelo, anio, precio, imagen, whatsapp] = row.split(",");
+
+      const card = `
+        <div class="car-card">
+          <img src="${imagen}" alt="${marca} ${modelo}" />
+          <h3>${marca} ${modelo}</h3>
+          <p>Año: ${anio}</p>
+          <p>Precio: ${precio}</p>
+          <a href="${whatsapp}" target="_blank">Contactar por WhatsApp</a>
+        </div>
+      `;
+
+      container.innerHTML += card;
+    });
+  });
