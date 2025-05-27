@@ -1,6 +1,6 @@
 
 // Reemplaza esta URL con tu link CSV publicado desde Google Sheets
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYNhV3khuyFHTUvtQ1VdAJPDMulz0_MGyP_f1rxwF3fUpuQjU4TtkqxxL2h7G-QNyTh5iBJScHzMha/pubhtml?gid=703846772&single=true";
+const sheetUrl = "AQUI_VA_TU_LINK_CSV";
 
 fetch(sheetUrl)
   .then(response => response.text())
